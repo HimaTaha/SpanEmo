@@ -1,5 +1,6 @@
 # SpanEmo
-***
+
+---
 
 Source code for the paper ["SpanEmo: Casting Multi-label Emotion Classification as Span-prediction"](https://www.aclweb.org/anthology/2021.eacl-main.135.pdf) in EACL2021.
 
@@ -7,28 +8,31 @@ Source code for the paper ["SpanEmo: Casting Multi-label Emotion Classification 
   <img src="https://github.com/hasanhuz/SpanEmo/blob/master/SpanEmo_arch.PNG?raw=true" alt="Photo" border="5" width=40%/> 
 </p>
 
-
 # Dependencies
+
 We used Python=3.6, torch=1.2.0. Other packages can be installed via:
+
 ```angular2html
 pip install -r requirements.txt
 ```
+
 The model was trained on an Nvidia GeForce GTX1080 with 11GB memory, Ubuntu 18.10.
 
-***
+---
 
 # Usage
 
-You first need to download the dataset [Link](https://competitions.codalab.org/competitions/17751#learn_the_details-datasets) for the language of your choice  (i.e., English, Arabic or Spanish) and then place them in the data directory `data/`.
-
+You first need to download the dataset [Link](https://competitions.codalab.org/competitions/17751#learn_the_details-datasets) for the language of your choice (i.e., English, Arabic or Spanish) and then place them in the data directory `data/`.
 
 Next, run the main script to do the followings:
- * data loading and preprocessing
- * model creation and training
+
+- data loading and preprocessing
+- model creation and training
 
 ### Training
+
 ```
-python scripts/train.py --train-path {} --dev-path {}
+python scripts/train.py --train-path {} --dev-path {} --lang= Arabic --train-path   --train-batch-size   --dev-path   --eval-batch-size  --output-dropout   --loss-type   --alpha-loss --max-epoch
 
 Options:
     -h --help                         show this screen
@@ -47,11 +51,10 @@ Options:
     --alpha-loss=<float>              weight used to balance the loss [default: 0.2]
 ```
 
-
-
 Once the above step is done, you can then evaluate on the test set using the trained model:
 
 ## Evaluation
+
 ```
 python scripts/test.py --test-path {} --model-path {}
 
@@ -64,9 +67,11 @@ Options:
     --lang=<str>                      language choice [default: English]
     --test-path=<str>                 file path of the test set [default: ]
 ```
-***
+
+---
 
 # Citation
+
 Please cite the following paper if you found it useful. Thanks:)
 
 ```
