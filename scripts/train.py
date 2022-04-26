@@ -1,6 +1,18 @@
-"""
+import datetime
+import json
+
+import numpy as np
+import torch
+from docopt import docopt
+from torch.utils.data import DataLoader
+
+from data_loader import DataClass
+from learner import Trainer
+from model import SpanEmo
+
+usage = """
 Usage:
-    main.py [options]
+    train.py [options]
 
 Options:
     -h --help                         show this screen
@@ -13,24 +25,16 @@ Options:
     --max-epoch=<int>                 max epoch [default: 20]
     --ffn-lr=<float>                  ffn learning rate [default: 0.001]
     --bert-lr=<float>                 bert learning rate [default: 2e-5]
-    --lang=<str>                      language choice [default: English]
-    --dev-path=<str>                  file path of the dev set [default: '']
-    --train-path=<str>                file path of the train set [default: '']
+    --lang=<str>                      language choice [default: Arabic]
+    --dev-path=<str>                  file path of the dev set [default: /content/SpanEmo/data/2018-E-c-Ar-dev.txt]
+    --train-path=<str>                file path of the train set [default: /content/SpanEmo/data/2018-E-c-Ar-train.txt]
     --alpha-loss=<float>              weight used to balance the loss [default: 0.2]
 """
 
-from learner import Trainer
-from model import SpanEmo
-from data_loader import DataClass
-from torch.utils.data import DataLoader
-import torch
-from docopt import docopt
-import datetime
-import json
-import numpy as np
-
-
-args = docopt(__doc__)
+print("Hello")
+args = docopt(usage)
+print("world")
+print(args)
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 if str(device) == 'cuda:0':
     print("Currently using GPU: {}".format(device))
