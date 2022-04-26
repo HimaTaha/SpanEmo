@@ -29,7 +29,7 @@ Options:
     --dev-path=<str>                  file path of the dev set [default: /content/SpanEmo/data/2018-E-c-Ar-dev.txt]
     --train-path=<str>                file path of the train set [default: /content/SpanEmo/data/2018-E-c-Ar-train.txt]
     --alpha-loss=<float>              weight used to balance the loss [default: 0.2]
-    --checkpoint-dir=<str>            directory to save checkpoints [dfault: /content/drive/MyDrive/master/riginal]
+    --checkpoint-dir=<str>            directory to save checkpoints [default: /content/drive/MyDrive/master/riginal]
 """
 
 print("Hello")
