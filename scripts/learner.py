@@ -11,7 +11,7 @@ class EarlyStopping:
     """Early stops the training if validation loss doesn't improve after a given patience.
     Taken from https://github.com/Bjarten/early-stopping-pytorch"""
 
-    def __init__(self, filename, patience=7, verbose=True, delta=0):
+    def __init__(self, filename, checkpoint_path,  patience=7, verbose=True, delta=0):
         """
         Args:
             patience (int): How long to wait after last time validation loss improved.
@@ -29,6 +29,7 @@ class EarlyStopping:
         self.val_loss_min = np.Inf
         self.delta = delta
         self.cur_date = filename
+        self.checkpoint_path = checkpoint_path
 
     def __call__(self, val_loss, model):
         score = -val_loss
@@ -49,7 +50,7 @@ class EarlyStopping:
         """Saves model when validation loss decrease."""
         if self.verbose:
             print(f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
-        torch.save(model.state_dict(), 'models/' + self.cur_date + '_checkpoint.pt')
+        torch.save(model.state_dict(), self.checkpoint_path + '/models/' + self.cur_date + '_checkpoint.pt')
         self.val_loss_min = val_loss
 
 
@@ -62,12 +63,14 @@ class Trainer(object):
     :param filename: the best model will be saved using this given name (str)
     """
 
-    def __init__(self, model, train_data_loader, val_data_loader, filename):
+    def __init__(self, model, train_data_loader, val_data_loader, filename, checkpoint_path):
         self.model = model
         self.train_data_loader = train_data_loader
         self.val_data_loader = val_data_loader
         self.filename = filename
-        self.early_stop = EarlyStopping(self.filename, patience=10)
+        self.checkpoint_path = checkpoint_path
+        self.early_stop = EarlyStopping(
+            self.filename, checkpoint_path=checkpoint_path, patience=10)
 
     def fit(self, num_epochs, args, device='cuda:0'):
         """

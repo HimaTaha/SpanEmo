@@ -29,6 +29,7 @@ Options:
     --dev-path=<str>                  file path of the dev set [default: /content/SpanEmo/data/2018-E-c-Ar-dev.txt]
     --train-path=<str>                file path of the train set [default: /content/SpanEmo/data/2018-E-c-Ar-train.txt]
     --alpha-loss=<float>              weight used to balance the loss [default: 0.2]
+    --checkpoint-dir                  directory to save checkpoints [dfault: /content/drive/MyDrive/master/riginal]
 """
 
 print("Hello")
@@ -79,7 +80,8 @@ model = SpanEmo(output_dropout=float(args['--output-dropout']),
 #############################################################################
 # Start Training
 #############################################################################
-learn = Trainer(model, train_data_loader, dev_data_loader, filename=filename)
+learn = Trainer(model, train_data_loader, dev_data_loader,
+                filename=filename, checkpoint_path=args['--checkpoint-dir'])
 learn.fit(
     num_epochs=int(args['--max-epoch']),
     args=args,
