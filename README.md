@@ -32,7 +32,7 @@ Next, run the main script to do the followings:
 ### Training
 
 ```
-python scripts/train.py --train-path {} --dev-path {} --lang= Arabic --train-path   --train-batch-size   --dev-path   --eval-batch-size  --output-dropout   --loss-type   --alpha-loss --max-epoch
+python scripts/train.py --train-path {} --dev-path {} --lang= Arabic    --train-batch-size=32     --eval-batch-size=32  --output-dropout=0.1   --loss-type=cross-entropy   --alpha-loss=0.2 --max-epoch=20
 
 Options:
     -h --help                         show this screen
