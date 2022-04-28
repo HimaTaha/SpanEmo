@@ -16,7 +16,7 @@ Usage:
 
 Options:
     -h --help                         show this screen
-    --loss-type=<str>                 Which loss to use cross-ent|corr|joint. [default: cross-entropy]
+    --loss-type=<str>                 Which loss to use cross-ent|corr|joint. [default: joint]
     --max-length=<int>                text length [default: 128]
     --output-dropout=<float>          prob of dropout applied to the output layer [default: 0.1]
     --seed=<int>                      fixed random seed number [default: 42]
