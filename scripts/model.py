@@ -6,7 +6,7 @@ import transformers
 
 
 class BertEncoder(nn.Module):
-    def __init__(self, lang='English'):
+    def __init__(self, lang='Arabic'):
         """
         :param lang: str, train bert encoder for a given language
         """
@@ -14,7 +14,7 @@ class BertEncoder(nn.Module):
         if lang == 'English':
             self.bert = BertModel.from_pretrained('bert-base-uncased')
         elif lang == 'Arabic':
-            self.bert = AutoModel.from_pretrained("asafaya/bert-base-arabic")
+            self.bert = AutoModel.from_pretrained("UBC-NLP/MARBERT") 
         elif lang == 'Spanish':
             self.bert = AutoModel.from_pretrained("dccuchile/bert-base-spanish-wwm-uncased")
         self.feature_size = self.bert.config.hidden_size
