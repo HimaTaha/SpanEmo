@@ -21,6 +21,7 @@ import numpy as np
 
 
 args = docopt(__doc__)
+print(args)
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 if str(device) == 'cuda:0':
     print("Currently using GPU: {}".format(device))
@@ -42,7 +43,5 @@ print('The number of Test batches: ', len(test_data_loader))
 # Run the model on a Test set
 #############################################################################
 model = SpanEmo(lang=args['--lang'])
-learn = EvaluateOnTest(model, test_data_loader, model_path='models/' + args['--model-path'])
+learn = EvaluateOnTest(model, test_data_loader, model_path=args['--model-path'])
 learn.predict(device=device)
-
-
