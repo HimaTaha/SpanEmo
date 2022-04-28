@@ -50,7 +50,15 @@ Options:
     --train-path=<str>                file path of the train set [default: '']
     --alpha-loss=<float>              weight used to balance the loss [default: 0.2]
 ```
-
+#### Experiment
+ - feature dimension of 786
+ - batch size of 32
+ - dropout rate of 0.1
+ - early stop patience of 10
+ - 20 epochs
+ - Adam optimizer
+ - learning rate of 2e-5 for the BERT encoder
+ - learning rate of 1e-3 for the FFN
 Once the above step is done, you can then evaluate on the test set using the trained model:
 
 ## Evaluation
