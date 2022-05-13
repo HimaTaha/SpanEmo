@@ -8,7 +8,7 @@ Options:
     --max-length=<int>                text length [default: 128]
     --seed=<int>                      seed [default: 0]
     --test-batch-size=<int>           batch size [default: 32]
-    --lang=<str>                      language choice [default: English]
+    --lang=<str>                      language choice [default: Arabic]
     --test-path=<str>                 file path of the test set [default: ]
 """
 from learner import EvaluateOnTest

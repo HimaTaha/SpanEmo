@@ -28,16 +28,9 @@ class DataClass(Dataset):
         self.filename = filename
         self.max_length = int(args['--max-length'])
         self.data, self.labels = self.load_dataset()
-
-        if args['--lang'] == 'English':
-            self.bert_tokeniser = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-        elif args['--lang'] == 'Arabic':
-            self.bert_tokeniser = AutoTokenizer.from_pretrained("MARBERT")
-        elif args['--lang'] == 'Spanish':
-            self.bert_tokeniser = AutoTokenizer.from_pretrained("dccuchile/bert-base-spanish-wwm-uncased")
-
+        # Arabic
+        self.bert_tokeniser = AutoTokenizer.from_pretrained("MARBERT")
         self.inputs, self.lengths, self.label_indices = self.process_data()
-
     def load_dataset(self):
         """
         :return: dataset after being preprocessed and tokenised
@@ -49,20 +42,8 @@ class DataClass(Dataset):
     def process_data(self):
         desc = "PreProcessing dataset {}...".format('')
         preprocessor = twitter_preprocessor()
-
-        if self.args['--lang'] == 'English':
-            segment_a = "anger anticipation disgust fear joy love optimism hopeless sadness surprise or trust?"
-            label_names = ["anger", "anticipation", "disgust", "fear", "joy",
-                           "love", "optimism", "hopeless", "sadness", "surprise", "trust"]
-        elif self.args['--lang'] == 'Arabic':
-            segment_a = "غضب توقع قرف خوف سعادة حب تفأول اليأس حزن اندهاش أو ثقة؟"
-            label_names = ['غضب', 'توقع', 'قر', 'خوف', 'سعادة', 'حب', 'تف', 'الياس', 'حزن', 'اند', 'ثقة']
-
-        elif self.args['--lang'] == 'Spanish':
-            segment_a = "ira anticipaciÃ³n asco miedo alegrÃ­a amor optimismo pesimismo tristeza sorpresa or confianza?"
-            label_names = ['ira', 'anticip', 'asco', 'miedo', 'alegr', 'amor', 'optimismo',
-                           'pesim', 'tristeza', 'sorpresa', 'confianza']
-
+        segment_a = "غضب توقع قرف خوف سعادة حب تفأول اليأس حزن اندهاش أو ثقة؟"
+        label_names = ['غضب', 'توقع', 'قر', 'خوف', 'سعادة', 'حب', 'تف', 'الياس', 'حزن', 'اند', 'ثقة']
         inputs, lengths, label_indices = [], [], []
         for x in tqdm(self.data, desc=desc):
             x = ' '.join(preprocessor(x))
