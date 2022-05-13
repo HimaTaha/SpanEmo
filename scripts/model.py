@@ -27,7 +27,7 @@ class BertEncoder(nn.Module):
 
 
 class SpanEmo(nn.Module):
-    def __init__(self, output_dropout=0.1, lang='English', joint_loss='joint', alpha=0.2):
+    def __init__(self, output_dropout=0.1, lang='Arabic', joint_loss='joint', alpha=0.2):
         """ casting multi-label emotion classification as span-extraction
         :param output_dropout: The dropout probability for output layer
         :param lang: encoder language

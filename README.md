@@ -45,21 +45,23 @@ Options:
     --max-epoch=<int>                 max epoch [default: 20]
     --ffn-lr=<float>                  ffn learning rate [default: 0.001]
     --bert-lr=<float>                 bert learning rate [default: 2e-5]
-    --lang=<str>                      language choice [default: English]
+    --lang=<str>                      language choice [default: Arabic]
     --dev-path=<str>                  file path of the dev set [default: '']
     --train-path=<str>                file path of the train set [default: '']
     --alpha-loss=<float>              weight used to balance the loss [default: 0.2]
 ```
+
 #### Experiment
- - feature dimension of 786
- - batch size of 32
- - dropout rate of 0.1
- - early stop patience of 10
- - 20 epochs
- - Adam optimizer
- - learning rate of 2e-5 for the BERT encoder
- - learning rate of 1e-3 for the FFN
-Once the above step is done, you can then evaluate on the test set using the trained model:
+
+- feature dimension of 786
+- batch size of 32
+- dropout rate of 0.1
+- early stop patience of 10
+- 20 epochs
+- Adam optimizer
+- learning rate of 2e-5 for the BERT encoder
+- learning rate of 1e-3 for the FFN
+  Once the above step is done, you can then evaluate on the test set using the trained model:
 
 ## Evaluation
 
