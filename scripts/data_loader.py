@@ -43,7 +43,8 @@ class DataClass(Dataset):
         desc = "PreProcessing dataset {}...".format('')
         preprocessor = twitter_preprocessor()
         segment_a = "غضب توقع قرف خوف سعادة حب تفأول اليأس حزن اندهاش أو ثقة؟"
-        label_names = ['غضب', 'توقع', 'قر', 'خوف', 'سعادة', 'حب', 'تف', 'الياس', 'حزن', 'اند', 'ثقة']
+        # label_names = ['غضب', 'توقع', 'قر', 'خوف', 'سعادة', 'حب', 'تف', 'الياس', 'حزن', 'اند', 'ثقة']
+        label_names = ['غضب', 'توقع', 'قرف', 'خوف', 'سعادة', 'حب', 'تفاول', 'الياس', 'حزن', 'انده', 'ثقة'] # MARBERT TOKENS
         inputs, lengths, label_indices = [], [], []
         for x in tqdm(self.data, desc=desc):
             x = ' '.join(preprocessor(x))
@@ -57,7 +58,9 @@ class DataClass(Dataset):
             input_length = len([i for i in x['attention_mask'] if i == 1])
             inputs.append(input_id)
             lengths.append(input_length)
-
+            # DEBUGGER
+            # print(x)
+            # print(self.bert_tokeniser.convert_ids_to_tokens(input_id))
             #label indices
             label_idxs = [self.bert_tokeniser.convert_ids_to_tokens(input_id).index(label_names[idx])
                              for idx, _ in enumerate(label_names)]
