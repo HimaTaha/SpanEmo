@@ -29,7 +29,7 @@ class DataClass(Dataset):
         self.max_length = int(args['--max-length'])
         self.data, self.labels = self.load_dataset()
         # Arabic
-        self.bert_tokeniser = AutoTokenizer.from_pretrained("MARBERT")
+        self.bert_tokeniser = AutoTokenizer.from_pretrained("AraT5-base")
         self.inputs, self.lengths, self.label_indices = self.process_data()
     def load_dataset(self):
         """
