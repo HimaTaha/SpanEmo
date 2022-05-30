@@ -1,5 +1,5 @@
 from torch.utils.data import Dataset
-from transformers import BertTokenizer, AutoTokenizer
+from transformers import AutoTokenizer
 from tqdm import tqdm
 import torch
 import pandas as pd

@@ -1,4 +1,4 @@
-from transformers import BertModel, AutoModel
+from transformers import T5ForConditionalGeneration, AutoModel
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
@@ -11,7 +11,7 @@ class BertEncoder(nn.Module):
         :param lang: str, train bert encoder for a given language
         """
         super(BertEncoder, self).__init__()
-        self.bert = AutoModel.from_pretrained("AraT5-base") 
+        self.bert = T5ForConditionalGeneration.from_pretrained("AraT5-base") 
         self.feature_size = self.bert.config.hidden_size
 
     def forward(self, input_ids):
