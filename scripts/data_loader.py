@@ -31,12 +31,15 @@ class DataClass(Dataset):
         # Arabic
         self.bert_tokeniser = AutoTokenizer.from_pretrained("AraT5-base")
         self.inputs, self.lengths, self.label_indices = self.process_data()
+
+
     def load_dataset(self):
         """
         :return: dataset after being preprocessed and tokenised
         """
         df = pd.read_csv(self.filename, sep='\t')
-        x_train, y_train = df.Tweet.values, df.iloc[:, 2:].values
+        x_train, y_train = 'multilabel classification: ' + df.Tweet.values, df.iloc[:, 2:].values
+        print(x_train)
         return x_train, y_train
 
     def process_data(self):
