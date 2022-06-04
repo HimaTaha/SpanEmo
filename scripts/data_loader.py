@@ -68,15 +68,21 @@ class DataClass(Dataset):
         inputs, lengths, label_indices = [], [], []
         for x in tqdm(self.data, desc=desc):
             x = ' '.join(preprocessor(x))
+            # x = self.t5_tokniser.encode_plus(segment_a,
+            #                                     x,
+            #                                     add_special_tokens=True,
+            #                                     max_length=self.max_length,
+            #                                     pad_to_max_length=True,
+            #                                     truncation=True,
+            #                                     return_attention_mask=True,
+            #                                 return_token_type_ids=False,
+            #                                     return_tensors='pt')
             x = self.bert_tokeniser.encode_plus(segment_a,
                                                 x,
                                                 add_special_tokens=True,
                                                 max_length=self.max_length,
                                                 pad_to_max_length=True,
-                                                truncation=True,
-                                                return_attention_mask=True,
-                                            return_token_type_ids=False,
-                                                return_tensors='pt')
+                                                truncation=True)
             input_id = x['input_ids']
             input_length = len([i for i in x['attention_mask'] if i == 1])
             inputs.append(input_id)
