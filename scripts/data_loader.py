@@ -68,7 +68,7 @@ class DataClass(Dataset):
         inputs, lengths, label_indices = [], [], []
         for x in tqdm(self.data, desc=desc):
             x = ' '.join(preprocessor(x))
-            x = self.t5_tokenizer.encode_plus(segment_a,
+            x = self.bert_tokeniser.encode_plus(segment_a,
                                                 x,
                                                 add_special_tokens=True,
                                                 max_length=self.max_length,
@@ -83,9 +83,9 @@ class DataClass(Dataset):
             lengths.append(input_length)
             # DEBUGGER
             # print(x)
-            # print(self.t5_tokenizer.convert_ids_to_tokens(input_id))
+            # print(self.bert_tokeniser.convert_ids_to_tokens(input_id))
             #label indices
-            label_idxs = [self.t5_tokenizer.convert_ids_to_tokens(input_id).index(label_names[idx])
+            label_idxs = [self.bert_tokeniser.convert_ids_to_tokens(input_id).index(label_names[idx])
                              for idx, _ in enumerate(label_names)]
             label_indices.append(label_idxs)
 
