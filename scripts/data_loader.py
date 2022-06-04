@@ -1,5 +1,5 @@
 from torch.utils.data import Dataset
-from transformers import T5Tokenizer
+from transformers import T5Tokenizer, AutoTokenizer
 from tqdm import tqdm
 import torch
 import pandas as pd
@@ -30,12 +30,8 @@ class DataClass(Dataset):
         self.max_length = int(args['--max-length'])
         self.data, self.labels = self.load_dataset()
         # Arabic
-<<<<<<< HEAD
-        self.t5_tokenizer = T5Tokenizer.from_pretrained("AraT5-base")
-=======
-        # self.bert_tokeniser = AutoTokenizer.from_pretrained("AraT5-base")
+                # self.bert_tokeniser = AutoTokenizer.from_pretrained("AraT5-base")
         self.bert_tokeniser = AutoTokenizer.from_pretrained("MARBERT")
->>>>>>> af5e9d9426604c9e843e1ba6f9d01f54b6a92a6f
         self.inputs, self.lengths, self.label_indices = self.process_data()
 
 
@@ -59,8 +55,8 @@ class DataClass(Dataset):
         #         y_train.append(' , '.join(x.tolist()) + ' </s>')
         #     else:
         #         y_train.append('none </s>')
-        # print(x_train[0])
-        # print(y_train[0])
+        print(x_train[0])
+        print(y_train[0])
         return x_train, y_train
 
     def process_data(self):
