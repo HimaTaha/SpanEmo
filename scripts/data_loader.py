@@ -1,8 +1,9 @@
 from torch.utils.data import Dataset
-from transformers import AutoTokenizer
+from transformers import T5Tokenizer
 from tqdm import tqdm
 import torch
 import pandas as pd
+import numpy as np
 from ekphrasis.classes.tokenizer import SocialTokenizer
 from ekphrasis.classes.preprocessor import TextPreProcessor
 
@@ -29,7 +30,7 @@ class DataClass(Dataset):
         self.max_length = int(args['--max-length'])
         self.data, self.labels = self.load_dataset()
         # Arabic
-        self.bert_tokeniser = AutoTokenizer.from_pretrained("AraT5-base")
+        self.t5_tokenizer = T5Tokenizer.from_pretrained("AraT5-base")
         self.inputs, self.lengths, self.label_indices = self.process_data()
 
 
@@ -38,8 +39,23 @@ class DataClass(Dataset):
         :return: dataset after being preprocessed and tokenised
         """
         df = pd.read_csv(self.filename, sep='\t')
-        x_train, y_train = 'multilabel classification: ' + df.Tweet.values, df.iloc[:, 2:].values
-        print(x_train)
+        x_train = 'multilabel classification: ' + df.Tweet.values
+        y_train = df.iloc[:, 2:].values
+
+        # labels_li = [' '.join(x.lower().split()) for x in df.columns.to_list()[2:]]
+        # labels_matrix = np.array([labels_li] * len(df))
+        # print(labels_li)
+
+        # mask = df.iloc[:, 2:].values.astype(bool)
+        # y_train = []
+        # for l, m in zip(labels_matrix, mask):
+        #     x = l[m]
+        #     if len(x) > 0:
+        #         y_train.append(' , '.join(x.tolist()) + ' </s>')
+        #     else:
+        #         y_train.append('none </s>')
+        # print(x_train[0])
+        # print(y_train[0])
         return x_train, y_train
 
     def process_data(self):
@@ -51,21 +67,24 @@ class DataClass(Dataset):
         inputs, lengths, label_indices = [], [], []
         for x in tqdm(self.data, desc=desc):
             x = ' '.join(preprocessor(x))
-            x = self.bert_tokeniser.encode_plus(segment_a,
+            x = self.t5_tokenizer.encode_plus(segment_a,
                                                 x,
                                                 add_special_tokens=True,
                                                 max_length=self.max_length,
                                                 pad_to_max_length=True,
-                                                truncation=True)
+                                                truncation=True,
+                                                return_attention_mask=True,
+                                            return_token_type_ids=False,
+                                                return_tensors='pt')
             input_id = x['input_ids']
             input_length = len([i for i in x['attention_mask'] if i == 1])
             inputs.append(input_id)
             lengths.append(input_length)
             # DEBUGGER
             # print(x)
-            # print(self.bert_tokeniser.convert_ids_to_tokens(input_id))
+            # print(self.t5_tokenizer.convert_ids_to_tokens(input_id))
             #label indices
-            label_idxs = [self.bert_tokeniser.convert_ids_to_tokens(input_id).index(label_names[idx])
+            label_idxs = [self.t5_tokenizer.convert_ids_to_tokens(input_id).index(label_names[idx])
                              for idx, _ in enumerate(label_names)]
             label_indices.append(label_idxs)
 

@@ -11,7 +11,8 @@ class BertEncoder(nn.Module):
         :param lang: str, train bert encoder for a given language
         """
         super(BertEncoder, self).__init__()
-        self.bert = T5ForConditionalGeneration.from_pretrained("AraT5-base") 
+        # self.bert = T5ForConditionalGeneration.from_pretrained("AraT5-base") 
+        self.bert = AutoModel.from_pretrained("AraT5-base").encoder
         self.feature_size = self.bert.config.hidden_size
 
     def forward(self, input_ids):
