@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch
 import transformers 
 
-
+   
 class BertEncoder(nn.Module):
     def __init__(self, lang='Arabic'):
         """
